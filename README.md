@@ -1,4 +1,6 @@
-[![Python package](https://github.com/Redx-Pharma/MMP/actions/workflows/testing.yaml/badge.svg)](https://github.com/Redx-Pharma/MMP/actions/workflows/testing.yaml)
+[![Python package](https://github.com/Redx-Pharma/mmp_os/actions/workflows/testing.yaml/badge.svg)](https://github.com/Redx-Pharma/mmp_os/actions/workflows/testing.yaml)
+
+[![Deploy static content to Pages](https://github.com/Redx-Pharma/mmp_os/actions/workflows/static.yaml/badge.svg)](https://github.com/Redx-Pharma/mmp_os/actions/workflows/static.yaml)
 
 # MMP
 Repository of methods for Matched Molecular Pairs (MMP) analysis using the open source MMPDB library. Please see [pages](https://reimagined-couscous-wgo85em.pages.github.io/) for more detail on the functions.
