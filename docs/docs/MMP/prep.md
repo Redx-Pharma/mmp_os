@@ -1,0 +1,396 @@
+# Module MMP.prep
+
+Module of methods to prepare for MMP
+
+??? example "View Source"
+        #!/usr/bin.env python3
+
+        # -*- coding: utf-8 -*-
+
+        """
+
+        Module of methods to prepare for MMP
+
+        """
+
+        from typing import List
+
+        import logging
+
+        import pandas as pd
+
+        from rdkit import Chem
+
+        from MMP import utils
+
+        log = logging.getLogger(__name__)
+
+
+
+        def load_csv_data(f: str, sep: str = ",") -> pd.DataFrame:
+
+            """
+
+            Function to load a file of data
+
+            Args:
+
+                f: str file to load
+
+                sep: str the column separator defaults to comma ","
+
+            Returns:
+
+                pd.DataFrame pandas dataframe of data
+
+            """
+
+            return pd.read_csv(f, sep=sep)
+
+
+
+        def extract_smiles_and_labels(
+
+            data_df: pd.DataFrame,
+
+            smiles_col: str = "smiles",
+
+            labels_col: str = "labels",
+
+            valid_only: bool = True,
+
+            rdkit_standardize_smiles: bool = True,
+
+        ) -> pd.DataFrame:
+
+            """
+
+            Function to extract the smiles and labels only for the smi file
+
+            Args:
+
+                data_df: dataframe of raw data including at minimum smiles_col and labels_col
+
+                smiles_col: string smiles column name
+
+                labels_col: string labels column name
+
+                Valid_only: bool extract only valid smiles
+
+            Returns:
+
+                pandas dataframe
+
+            """
+
+            if valid_only is True:
+
+                smi_valid_mask = utils.get_valid_smiles_mask(
+
+                    data_df[smiles_col].values.tolist()
+
+                )
+
+                df = data_df.loc[smi_valid_mask].copy()
+
+            else:
+
+                df = data_df.copy()
+
+            if rdkit_standardize_smiles is True:
+
+                df[smiles_col] = [
+
+                    Chem.MolToSmiles(Chem.MolFromSmiles(smi)) for smi in df[smiles_col].values
+
+                ]
+
+            return df[[smiles_col, labels_col]].copy()
+
+
+
+        def extract_properties(
+
+            data_df: pd.DataFrame,
+
+            properties_columns: List[str],
+
+            smiles_col: str = "smiles",
+
+            labels_col: str = "labels",
+
+            valid_only: bool = True,
+
+        ) -> pd.DataFrame:
+
+            """
+
+            Function to extract the smiles and labels only for the smi file
+
+            Args:
+
+                data_df: dataframe of raw data including at minimum smiles_col and labels_col
+
+                smiles_col: string smiles column name
+
+                labels_col: string labels column name
+
+                Valid_only: bool extract only valid smiles
+
+            Returns:
+
+                pandas dataframe
+
+            """
+
+            if valid_only is True:
+
+                smi_valid_mask = utils.get_valid_smiles_mask(
+
+                    data_df[smiles_col].values.tolist()
+
+                )
+
+                df = data_df.loc[smi_valid_mask].copy()
+
+            else:
+
+                df = data_df.copy()
+
+            df = df[[labels_col] + list(properties_columns)].copy()
+
+            df = df.rename({labels_col: "ID"}, axis=1)
+
+            df = df.fillna("*")
+
+            return df
+
+## Variables
+
+```python3
+log
+```
+
+## Functions
+
+
+### extract_properties
+
+```python3
+def extract_properties(
+    data_df: pandas.core.frame.DataFrame,
+    properties_columns: List[str],
+    smiles_col: str = 'smiles',
+    labels_col: str = 'labels',
+    valid_only: bool = True
+) -> pandas.core.frame.DataFrame
+```
+
+Function to extract the smiles and labels only for the smi file
+
+**Parameters:**
+
+| Name | Type | Description | Default |
+|---|---|---|---|
+| data_df | None | dataframe of raw data including at minimum smiles_col and labels_col | None |
+| smiles_col | None | string smiles column name | None |
+| labels_col | None | string labels column name | None |
+| Valid_only | None | bool extract only valid smiles | None |
+
+**Returns:**
+
+| Type | Description |
+|---|---|
+| None | pandas dataframe |
+
+??? example "View Source"
+        def extract_properties(
+
+            data_df: pd.DataFrame,
+
+            properties_columns: List[str],
+
+            smiles_col: str = "smiles",
+
+            labels_col: str = "labels",
+
+            valid_only: bool = True,
+
+        ) -> pd.DataFrame:
+
+            """
+
+            Function to extract the smiles and labels only for the smi file
+
+            Args:
+
+                data_df: dataframe of raw data including at minimum smiles_col and labels_col
+
+                smiles_col: string smiles column name
+
+                labels_col: string labels column name
+
+                Valid_only: bool extract only valid smiles
+
+            Returns:
+
+                pandas dataframe
+
+            """
+
+            if valid_only is True:
+
+                smi_valid_mask = utils.get_valid_smiles_mask(
+
+                    data_df[smiles_col].values.tolist()
+
+                )
+
+                df = data_df.loc[smi_valid_mask].copy()
+
+            else:
+
+                df = data_df.copy()
+
+            df = df[[labels_col] + list(properties_columns)].copy()
+
+            df = df.rename({labels_col: "ID"}, axis=1)
+
+            df = df.fillna("*")
+
+            return df
+
+
+### extract_smiles_and_labels
+
+```python3
+def extract_smiles_and_labels(
+    data_df: pandas.core.frame.DataFrame,
+    smiles_col: str = 'smiles',
+    labels_col: str = 'labels',
+    valid_only: bool = True,
+    rdkit_standardize_smiles: bool = True
+) -> pandas.core.frame.DataFrame
+```
+
+Function to extract the smiles and labels only for the smi file
+
+**Parameters:**
+
+| Name | Type | Description | Default |
+|---|---|---|---|
+| data_df | None | dataframe of raw data including at minimum smiles_col and labels_col | None |
+| smiles_col | None | string smiles column name | None |
+| labels_col | None | string labels column name | None |
+| Valid_only | None | bool extract only valid smiles | None |
+
+**Returns:**
+
+| Type | Description |
+|---|---|
+| None | pandas dataframe |
+
+??? example "View Source"
+        def extract_smiles_and_labels(
+
+            data_df: pd.DataFrame,
+
+            smiles_col: str = "smiles",
+
+            labels_col: str = "labels",
+
+            valid_only: bool = True,
+
+            rdkit_standardize_smiles: bool = True,
+
+        ) -> pd.DataFrame:
+
+            """
+
+            Function to extract the smiles and labels only for the smi file
+
+            Args:
+
+                data_df: dataframe of raw data including at minimum smiles_col and labels_col
+
+                smiles_col: string smiles column name
+
+                labels_col: string labels column name
+
+                Valid_only: bool extract only valid smiles
+
+            Returns:
+
+                pandas dataframe
+
+            """
+
+            if valid_only is True:
+
+                smi_valid_mask = utils.get_valid_smiles_mask(
+
+                    data_df[smiles_col].values.tolist()
+
+                )
+
+                df = data_df.loc[smi_valid_mask].copy()
+
+            else:
+
+                df = data_df.copy()
+
+            if rdkit_standardize_smiles is True:
+
+                df[smiles_col] = [
+
+                    Chem.MolToSmiles(Chem.MolFromSmiles(smi)) for smi in df[smiles_col].values
+
+                ]
+
+            return df[[smiles_col, labels_col]].copy()
+
+
+### load_csv_data
+
+```python3
+def load_csv_data(
+    f: str,
+    sep: str = ','
+) -> pandas.core.frame.DataFrame
+```
+
+Function to load a file of data
+
+**Parameters:**
+
+| Name | Type | Description | Default |
+|---|---|---|---|
+| f | None | str file to load | None |
+| sep | None | str the column separator defaults to comma "," | None |
+
+**Returns:**
+
+| Type | Description |
+|---|---|
+| None | pd.DataFrame pandas dataframe of data |
+
+??? example "View Source"
+        def load_csv_data(f: str, sep: str = ",") -> pd.DataFrame:
+
+            """
+
+            Function to load a file of data
+
+            Args:
+
+                f: str file to load
+
+                sep: str the column separator defaults to comma ","
+
+            Returns:
+
+                pd.DataFrame pandas dataframe of data
+
+            """
+
+            return pd.read_csv(f, sep=sep)
