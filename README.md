@@ -98,6 +98,11 @@ vis_df = viz.show_mmp_diffs(base, output, save_filename="out_data_viz.xlsx")
 
 * The paper describing the MMPDB library can be found [online](https://pubs.acs.org/doi/10.1021/acs.jcim.8b00173_). This library is built as a wrapper around the MMPDB methods.
 
-## Authors
+## Contributions
+Authors:
+* Redx Pharma Team
 
-* James L. McDonagh
+Notable contributions
+* S. Yung
+* A. Haworth
+* J. McDonagh

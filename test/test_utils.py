@@ -20,7 +20,6 @@ def mmp_csv() -> str:
             ["c1ccccc1", "c1ccccc1C", "Y1", "Z1", "[c:][H] >> [c:][C]", "c1ccccc1"],
             ["c1ccccc1CF", "c1ccccc1N", "Y2", "Z2", "[c:][H] >> [c:][N]", "c1ccccc1"],
             ["c1ccccc1N", "c1ccccc1C", "Z2", "Z1", "[c:][N] >> [c:][C]", "c1ccccc1"],
-            ["c1ccccc1Cl", "c1ccccc1C", "Y3", "Z1", "[c:][Cl] >> [c:][C]", "c1ccccc1"],
             ["c1ccccc1Cl", "c1ccccc1N", "Y3", "Z2", "[c:][Cl] >> [c:][N]", "c1ccccc1"],
             ["c1ccccc1C", "c1ccccc1Cl", "Y1", "Y3", "[c:][C] >> [c:][Cl]", "c1ccccc1"],
             ["CCCC", "CCCCC", "Y4", "Z3", "[C][H]>>[C][C]", "CCCC"],

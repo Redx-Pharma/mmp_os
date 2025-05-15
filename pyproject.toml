@@ -10,6 +10,7 @@ name = "MMP"
 version = "0.0.1"
 license = "MIT"
 authors = [
+    {name = "Redx Pharma Team"},
     {name = "J. L. McDonagh"},
 ]
 description = "Matched Molecular Pairs (MMP) library wrapper around open source MMPDB library"
